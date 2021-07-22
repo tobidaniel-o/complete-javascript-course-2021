@@ -16,17 +16,17 @@
 // Prototype-based object-oriented - Almost everything in JS is an Object
 
 // First-class functions - Functions are simply treated as variables. We can pass them into other functions, and return them from functions. ex. below
-const closeModal = () => {
-  modal.classList.add('hidden');
-  overlay.classList.add('hidden');
-};
+// const closeModal = () => {
+//   modal.classList.add('hidden');
+//   overlay.classList.add('hidden');
+// };
 
-overlay.addEventListener('click', closeModal); // Passing function into another function as an argument: First-class functions!
+// overlay.addEventListener('click', closeModal); // Passing function into another function as an argument: First-class functions!
 
 // Dynamic - No data type definitions. Types becomes known at runtime. Data type of variable is automatically changed ex. below
-let x = 23;
-let y = 19;
-x = 'Tobi';
+// let x = 23;
+// let y = 19;
+// x = 'Tobi';
 
 // Single-threaded and Non-blocking event loop - Concurrency model: how the JavaScript engine handles multiple tasks happening at the same time.
 // Why do we need that?
@@ -81,10 +81,101 @@ x = 'Tobi';
 // Scope of a variable: Region of our code where a certain variable can be accessed.
 
 // 3 TYPES OF SCOPE IN JAVASCRIPT
-// Global
+// Global Scope
 // Outside of any function or block
 // Variables declared in global scope are accessible everywhere.
 // example below:
-const me = 'Jonas';
-const job = 'teacher';
-const year = 1989;
+// const me = 'Jonas';
+// const job = 'teacher';
+// const year = 1989;
+
+// Function Scope
+// Variables are accessible only inside function, NOT outside
+// Also called local scope
+// example below
+// function calcAge(birthYear) {
+//   const now = 2037;
+//   const age = now - birthYear;
+//   return age;
+// }
+// console.log(now); // ReferenceError
+
+// Block Scope (ES6)
+// Variables are accessible only *inside block* (block scoped)
+// HOWEVER, this only applies to *let and const* variables!
+// Functions are also *block scoped* (only in strict mode)
+// Example below:
+// if (year >= 1981 && year <= 1996) {
+//   const millenial = true;
+//   const food = 'Avocado toast';
+// }
+// console.log(millenial); // ReferenceError
+
+// const myName = 'Jonas';
+
+// function first() {
+//   const age = 30;
+//   if (age >= 30) {
+//     const decade = 3;
+//     var millenial = true;
+//   }
+//   function second() {
+//     const job = 'teacher';
+//     console.log(`${myName} is a ${age} year old ${job}`);
+//   }
+//   second();
+// }
+// first();
+
+// Difference between the SCOPE CHAIN vs CALL STACK
+// SCOPE CHAIN - Order in which functions are written in the code. Meaning, it has nothing to do with order in which functions were called!
+// CALL STTACK - Order in which functions were called
+
+// SUMMARY
+// Scoping asks the question "Where do variables live?" or "Where can we access a certain variable, and where not?"
+// There are 3 types of scope in JavaScript: the global scope, scopes defined by functions, and scopes defined by blocks;
+// Only *let* and *const* variables are block-scoped. Variables declared with *var* end up in the closest function scope
+// In JavaScript, we have lexical scoping, so the rules of where we can access variables are based on exactly where in the code functions and blocks are written.
+// Every scope always has access to all the variables from all its outer scopes. This is the scope chain!
+// When a variable is not in the current scope, the engine looks up in the scope chain until it finds the variable it's looking for. This is called variable lookup.
+// The scope chain is a one-way street: a scope will never, ever have access to the variables of an inner scope;
+// The scope chain in a certain scope is equal to adding together all the variable environments of all the parent scopes;
+// The scope chain has nothing to do with the ordeer in which functions were called. It does not affect the scope chain at all!
+
+function calcAge(birthYear) {
+  const age = 2021 - birthYear;
+
+  function printAge() {
+    const output = `You are ${age}, born in ${birthYear}`;
+    console.log(output);
+
+    if (birthYear >= 1981 && birthYear <= 1996) {
+      var millenial = true;
+      const str = `Oh, and you're a millenial, ${firstName}`;
+      console.log(str);
+
+      function add(a, b) {
+        return a + b;
+      }
+    }
+
+    console.log(millenial);
+    add(2, 3);
+  }
+
+  printAge();
+  return age;
+}
+
+const firstName = 'Jonas';
+
+calcAge(1985);
+
+
+// HOISTING IN JAVASCRIPT
+// Variable Environment
+// Hoisting: Makes some types of variables accessible/usable in the code before they are actually declared. "Variables lifted to the top of their scope". BEHIND THE SCENES -> Before execution, code is scanned for variable declarations, and for each variable, a new property is created in the *variable environment object*.
+// Example below
+// var me = 'Jonas'
+// let job = 'teacher'
+// const year = 1991
