@@ -142,40 +142,79 @@
 // The scope chain in a certain scope is equal to adding together all the variable environments of all the parent scopes;
 // The scope chain has nothing to do with the ordeer in which functions were called. It does not affect the scope chain at all!
 
-function calcAge(birthYear) {
-  const age = 2021 - birthYear;
+// function calcAge(birthYear) {
+//   const age = 2021 - birthYear;
 
-  function printAge() {
-    const output = `You are ${age}, born in ${birthYear}`;
-    console.log(output);
+//   function printAge() {
+//     const output = `You are ${age}, born in ${birthYear}`;
+//     console.log(output);
 
-    if (birthYear >= 1981 && birthYear <= 1996) {
-      var millenial = true;
-      const str = `Oh, and you're a millenial, ${firstName}`;
-      console.log(str);
+//     if (birthYear >= 1981 && birthYear <= 1996) {
+//       var millenial = true;
+//       const str = `Oh, and you're a millenial, ${firstName}`;
+//       console.log(str);
 
-      function add(a, b) {
-        return a + b;
-      }
-    }
+//       function add(a, b) {
+//         return a + b;
+//       }
+//     }
 
-    console.log(millenial);
-    add(2, 3);
-  }
+//     console.log(millenial);
+//     add(2, 3);
+//   }
 
-  printAge();
-  return age;
-}
+//   printAge();
+//   return age;
+// }
 
-const firstName = 'Jonas';
+// const firstName = 'Jonas';
 
-calcAge(1985);
-
+// calcAge(1985);
 
 // HOISTING IN JAVASCRIPT
 // Variable Environment
 // Hoisting: Makes some types of variables accessible/usable in the code before they are actually declared. "Variables lifted to the top of their scope". BEHIND THE SCENES -> Before execution, code is scanned for variable declarations, and for each variable, a new property is created in the *variable environment object*.
 // Example below
-// var me = 'Jonas'
-// let job = 'teacher'
-// const year = 1991
+
+// Hoisting with Variables
+console.log(me);
+// console.log(job) //TDZ - Temporal dead zone
+// console.log(year)
+
+var me = 'Jonas';
+let job = 'teacher';
+const year = 1991;
+
+// Functions
+console.log(addDecl(2, 3));
+// console.log(addExpr(2, 3))
+// console.log(addArrow(2, 3))
+
+function addDecl(a, b) {
+  return a + b;
+}
+
+// const addExpr = function (a, b) {
+//   return a + b;
+// };
+
+// var addArrow = (a, b) => a + b;
+
+// THE THIS KEYWORD
+// *this* keyword/variable: Special variable that is created for every execution context (every function). Takes the value  of (points to) the "owner" of the function in which the *this* keyword is used.
+
+// *this* is NOT static. It depends on how the function is called, and its value is only assigned when the function is actually called.
+
+// Method *this* = <Object that is calling the method>
+// Simple function call *this* = undefined
+// Arrow functions *this* = <this of surrounding function(lexical *this*), uses the *this* keyword of its parent >
+// Event listener *this* = <DOM element that the handler is atttached to >
+
+console.log(this);
+
+const calcAge = function (birthYear) {
+  console.log(2037 - birthYear);
+  console.log(this);
+};
+
+calcAge(1990)
