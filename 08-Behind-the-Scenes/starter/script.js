@@ -177,22 +177,22 @@
 // Example below
 
 // Hoisting with Variables
-console.log(me);
+// console.log(me);
 // console.log(job) //TDZ - Temporal dead zone
 // console.log(year)
 
-var me = 'Jonas';
-let job = 'teacher';
-const year = 1991;
+// var me = 'Jonas';
+// let job = 'teacher';
+// const year = 1991;
 
 // Functions
-console.log(addDecl(2, 3));
+// console.log(addDecl(2, 3));
 // console.log(addExpr(2, 3))
 // console.log(addArrow(2, 3))
 
-function addDecl(a, b) {
-  return a + b;
-}
+// function addDecl(a, b) {
+//   return a + b;
+// }
 
 // const addExpr = function (a, b) {
 //   return a + b;
@@ -210,11 +210,97 @@ function addDecl(a, b) {
 // Arrow functions *this* = <this of surrounding function(lexical *this*), uses the *this* keyword of its parent >
 // Event listener *this* = <DOM element that the handler is atttached to >
 
-console.log(this);
+// console.log(this);
 
-const calcAge = function (birthYear) {
-  console.log(2037 - birthYear);
-  console.log(this);
+// const calcAge = function (birthYear) {
+//   console.log(2037 - birthYear);
+//   console.log(this);
+// };
+
+// calcAge(1990)
+
+// REGULAR FUNCTIONS VS ARROW FUNCTIONS
+// var firstName = 'Matilda';
+
+// const jonas = {
+//   firstName: 'Jonas',
+//   year: 1991,
+//   calcAge: function () {
+//     console.log(this);
+//     console.log(2037 - this.year);
+//   },
+
+//   greet: () => {
+//     console.log(`Hey ${this.firstName}`);
+//   },
+// };
+// jonas.greet();
+
+// PRIMITIVES VS OBJECTS (Primitives vs. Reference Types)
+// let age = 30;
+// let oldAge = age;
+// age = 31;
+
+// console.log(age);
+// console.log(oldAge);
+
+// const me = {
+//   name: 'Tobi',
+//   age: '35'
+// }
+
+// const friend = me
+// friend.age = 27
+
+// console.log('Friend: ', friend)
+// console.log('Me', me)
+
+// Javascript Primitive Data Types
+// Number, String, Boolean, Undefined, Null, Symbol, BigInt
+// Primitives types are stored in the Execution context (Call Stack)
+
+// Javascript Reference Types
+// Object literal, Arrays, Functions, many more...
+// Reference values are stored in the Heap.
+
+// Primitive types
+let lastName = 'Williams';
+let oldLastName = lastName;
+lastName = 'Davis';
+
+console.log(lastName, oldLastName);
+
+// Reference types
+const jessica = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
 };
 
-calcAge(1990)
+const marriedJessica = jessica;
+
+marriedJessica.lastName = 'Davis';
+
+console.log('Before marriage: ', jessica);
+console.log('After marriage: ', marriedJessica);
+
+// marriedJessica = {}
+
+// Copying Objects
+const jessica2 = {
+  firstName: 'Jessica',
+  lastName: 'Williams',
+  age: 27,
+  family: ['Alice', 'Bob'],
+};
+
+// To copy an Object you use Object.assign ex. below NOTE: This only creates a shallow copy not a deep clone (i.e. first level copy).
+const jessicaCopy = Object.assign({}, jessica2);
+jessicaCopy.lastName = 'Davis';
+
+
+jessicaCopy.family.push('Mary');
+jessicaCopy.family.push('John');
+
+console.log('Before marriage: ', jessica2);
+console.log('After marriage: ', jessicaCopy);
